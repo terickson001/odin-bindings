@@ -1275,7 +1275,7 @@ MOPT_LASTENTRY                       :: 17;
 
 
 /***** libcurl *****/
-foreign import libcurl "/usr/lib/libcurl.so"
+foreign import libcurl "system:curl"
 
 /* Procedures */
 @(link_prefix="curl_")

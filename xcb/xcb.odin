@@ -65,7 +65,7 @@ extension_t :: struct {};
 
 
 /***** libxcb *****/
-foreign import libxcb "/usr/lib/libxcb.so"
+foreign import libxcb "system:xcb"
 
 /* Procedures */
 @(link_prefix="xcb_")
