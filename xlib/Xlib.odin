@@ -1039,7 +1039,7 @@ ConnectionWatchProc :: proc(^Display, Pointer, int, int, ^Pointer);
 
 
 /***** libX11 *****/
-foreign import libX11 "system:libX11.so"
+foreign import libX11 "system:X11"
 
 /* Procedures */
 @(link_prefix="X")
