@@ -64,80 +64,80 @@ CSUCCESS :: 0;
 CNOMEM :: 1;
 CNOENT :: 2;
 SizeHints :: struct {
-    flags       : _c.long,
-    x           : int,
-    y           : int,
-    width       : int,
-    height      : int,
-    min_width   : int,
-    min_height  : int,
-    max_width   : int,
-    max_height  : int,
-    width_inc   : int,
-    height_inc  : int,
+    flags : _c.long,
+    x : _c.int,
+    y : _c.int,
+    width : _c.int,
+    height : _c.int,
+    min_width : _c.int,
+    min_height : _c.int,
+    max_width : _c.int,
+    max_height : _c.int,
+    width_inc : _c.int,
+    height_inc : _c.int,
     min_aspect : struct {
-    x : int,
-    y : int,
-},
+        x : _c.int,
+        y : _c.int,
+    },
     max_aspect : struct {
-    x : int,
-    y : int,
-},
-    base_width  : int,
-    base_height : int,
-    win_gravity : int,
+        x : _c.int,
+        y : _c.int,
+    },
+    base_width : _c.int,
+    base_height : _c.int,
+    win_gravity : _c.int,
 };
 
 WMHints :: struct {
-    flags         : _c.long,
-    input         : int,
-    initial_state : int,
-    icon_pixmap   : Pixmap,
-    icon_window   : Window,
-    icon_x        : int,
-    icon_y        : int,
-    icon_mask     : Pixmap,
-    window_group  : ID,
+    flags : _c.long,
+    input : _c.int,
+    initial_state : _c.int,
+    icon_pixmap : Pixmap,
+    icon_window : Window,
+    icon_x : _c.int,
+    icon_y : _c.int,
+    icon_mask : Pixmap,
+    window_group : ID,
 };
 
 TextProperty :: struct {
-    value    : ^_c.uchar,
+    value : ^_c.uchar,
     encoding : Atom,
-    format   : int,
-    nitems   : _c.ulong,
+    format : _c.int,
+    nitems : _c.ulong,
 };
 
 ICCEncodingStyle :: _c.int;
 /*  <ENUM> :: enum { */
-StringStyle        :: 0;
-CompoundTextStyle  :: 1;
-TextStyle          :: 2;
-StdICCTextStyle    :: 3;
-UTF8StringStyle    :: 4;
+StringStyle :: 0;
+CompoundTextStyle :: 1;
+TextStyle :: 2;
+StdICCTextStyle :: 3;
+UTF8StringStyle :: 4;
 /* } */;
 
 IconSize :: struct {
-    min_width  : int,
-    min_height : int,
-    max_width  : int,
-    max_height : int,
-    width_inc  : int,
-    height_inc : int,
+    min_width : _c.int,
+    min_height : _c.int,
+    max_width : _c.int,
+    max_height : _c.int,
+    width_inc : _c.int,
+    height_inc : _c.int,
 };
 
 ClassHint :: struct {
-    res_name  : ^_c.char,
-    res_class : ^_c.char,
+    res_name : cstring,
+    res_class : cstring,
 };
 
 _ComposeStatus :: struct {
-    compose_ptr   : Pointer,
-    chars_matched : int,
+    compose_ptr : Pointer,
+    chars_matched : _c.int,
 };
 
 ComposeStatus :: struct {
-    compose_ptr   : Pointer,
-    chars_matched : int,
+    compose_ptr : Pointer,
+    chars_matched : _c.int,
 };
 
 _Region :: struct {};
@@ -145,110 +145,110 @@ _Region :: struct {};
 Region :: ^_Region;
 
 VisualInfo :: struct {
-    visual        : ^Visual,
-    visualid      : VisualID,
-    screen        : int,
-    depth         : int,
-    class         : int,
-    red_mask      : _c.ulong,
-    green_mask    : _c.ulong,
-    blue_mask     : _c.ulong,
-    colormap_size : int,
-    bits_per_rgb  : int,
+    visual : ^Visual,
+    visualid : VisualID,
+    screen : _c.int,
+    depth : _c.int,
+    class : _c.int,
+    red_mask : _c.ulong,
+    green_mask : _c.ulong,
+    blue_mask : _c.ulong,
+    colormap_size : _c.int,
+    bits_per_rgb : _c.int,
 };
 
 StandardColormap :: struct {
-    colormap   : Colormap,
-    red_max    : _c.ulong,
-    red_mult   : _c.ulong,
-    green_max  : _c.ulong,
+    colormap : Colormap,
+    red_max : _c.ulong,
+    red_mult : _c.ulong,
+    green_max : _c.ulong,
     green_mult : _c.ulong,
-    blue_max   : _c.ulong,
-    blue_mult  : _c.ulong,
+    blue_max : _c.ulong,
+    blue_mult : _c.ulong,
     base_pixel : _c.ulong,
-    visualid   : VisualID,
-    killid     : ID,
+    visualid : VisualID,
+    killid : ID,
 };
 
-Context :: int;
+Context :: _c.int;
 
 
 /***** libX11 *****/
-foreign import libX11 "system:X11"
+foreign import libX11 "system:libX11.so"
 
 /* Procedures */
 @(link_prefix="X")
 foreign libX11 {
-ClipBox                                                    :: proc(Region, ^Rectangle) -> int ---;
-CreateRegion                                               :: proc() -> Region ---;
-DeleteContext                                              :: proc(^Display, ID, Context) -> int ---;
-DestroyRegion                                              :: proc(Region) -> int ---;
-EmptyRegion                                                :: proc(Region) -> int ---;
-EqualRegion                                                :: proc(Region, Region) -> int ---;
-FindContext                                                :: proc(^Display, ID, Context, ^Pointer) -> int ---;
-GetClassHint                                               :: proc(^Display, Window, ^ClassHint) -> int ---;
-GetIconSizes                                               :: proc(^Display, Window, ^^IconSize, ^int) -> int ---;
-AllocClassHint                                             :: proc() -> ^ClassHint ---;
-AllocIconSize                                              :: proc() -> ^IconSize ---;
-AllocSizeHints                                             :: proc() -> ^SizeHints ---;
-AllocStandardColormap                                      :: proc() -> ^StandardColormap ---;
-GetNormalHints                                             :: proc(^Display, Window, ^SizeHints) -> int ---;
-GetRGBColormaps                                            :: proc(^Display, Window, ^^StandardColormap, ^int, Atom) -> int ---;
-GetSizeHints                                               :: proc(^Display, Window, ^SizeHints, Atom) -> int ---;
-GetStandardColormap                                        :: proc(^Display, Window, ^StandardColormap, Atom) -> int ---;
-GetTextProperty                                            :: proc(^Display, Window, ^TextProperty, Atom) -> int ---;
-GetWMClientMachine                                         :: proc(^Display, Window, ^TextProperty) -> int ---;
-AllocWMHints                                               :: proc() -> ^WMHints ---;
-DefaultString                                              :: proc() -> ^_c.char ---;
-GetVisualInfo                                              :: proc(^Display, _c.long, ^VisualInfo, ^int) -> ^VisualInfo ---;
-GetWMHints                                                 :: proc(^Display, Window) -> ^WMHints ---;
-GetWMIconName                                              :: proc(^Display, Window, ^TextProperty) -> int ---;
-GetWMName                                                  :: proc(^Display, Window, ^TextProperty) -> int ---;
-GetWMNormalHints                                           :: proc(^Display, Window, ^SizeHints, ^_c.long) -> int ---;
-GetWMSizeHints                                             :: proc(^Display, Window, ^SizeHints, ^_c.long, Atom) -> int ---;
-GetZoomHints                                               :: proc(^Display, Window, ^SizeHints) -> int ---;
-IntersectRegion                                            :: proc(Region, Region, Region) -> int ---;
-ConvertCase                                                :: proc(KeySym, ^KeySym, ^KeySym) ---;
-LookupString                                               :: proc(^KeyEvent, ^_c.char, int, ^KeySym, ^ComposeStatus) -> int ---;
-MatchVisualInfo                                            :: proc(^Display, int, int, int, ^VisualInfo) -> int ---;
-OffsetRegion                                               :: proc(Region, int, int) -> int ---;
-PointInRegion                                              :: proc(Region, int, int) -> int ---;
-PolygonRegion                                              :: proc(^Point, int, int) -> Region ---;
-RectInRegion                                               :: proc(Region, int, int, _c.uint, _c.uint) -> int ---;
-SaveContext                                                :: proc(^Display, ID, Context, ^_c.char) -> int ---;
-SetClassHint                                               :: proc(^Display, Window, ^ClassHint) -> int ---;
-SetIconSizes                                               :: proc(^Display, Window, ^IconSize, int) -> int ---;
-SetNormalHints                                             :: proc(^Display, Window, ^SizeHints) -> int ---;
-SetRGBColormaps                                            :: proc(^Display, Window, ^StandardColormap, int, Atom) ---;
-SetSizeHints                                               :: proc(^Display, Window, ^SizeHints, Atom) -> int ---;
-SetStandardProperties                                      :: proc(^Display, Window, ^_c.char, ^_c.char, Pixmap, ^^_c.char, int, ^SizeHints) -> int ---;
-SetTextProperty                                            :: proc(^Display, Window, ^TextProperty, Atom) ---;
-SetWMClientMachine                                         :: proc(^Display, Window, ^TextProperty) ---;
-SetWMHints                                                 :: proc(^Display, Window, ^WMHints) -> int ---;
-SetWMIconName                                              :: proc(^Display, Window, ^TextProperty) ---;
-SetWMName                                                  :: proc(^Display, Window, ^TextProperty) ---;
-SetWMNormalHints                                           :: proc(^Display, Window, ^SizeHints) ---;
-SetWMProperties                                            :: proc(^Display, Window, ^TextProperty, ^TextProperty, ^^_c.char, int, ^SizeHints, ^WMHints, ^ClassHint) ---;
-mbSetWMProperties                                          :: proc(^Display, Window, ^_c.char, ^_c.char, ^^_c.char, int, ^SizeHints, ^WMHints, ^ClassHint) ---;
-utf8SetWMProperties                                        :: proc(^Display, Window, ^_c.char, ^_c.char, ^^_c.char, int, ^SizeHints, ^WMHints, ^ClassHint) ---;
-SetWMSizeHints                                             :: proc(^Display, Window, ^SizeHints, Atom) ---;
-SetRegion                                                  :: proc(^Display, GC, Region) -> int ---;
-SetStandardColormap                                        :: proc(^Display, Window, ^StandardColormap, Atom) ---;
-SetZoomHints                                               :: proc(^Display, Window, ^SizeHints) -> int ---;
-ShrinkRegion                                               :: proc(Region, int, int) -> int ---;
-StringListToTextProperty                                   :: proc(^^_c.char, int, ^TextProperty) -> int ---;
-SubtractRegion                                             :: proc(Region, Region, Region) -> int ---;
-mbTextListToTextProperty                                   :: proc(display : ^Display, list : ^^_c.char, count : int, style : ICCEncodingStyle, text_prop_return : ^TextProperty) -> int ---;
-wcTextListToTextProperty                                   :: proc(display : ^Display, list : ^^_c.wchar_t, count : int, style : ICCEncodingStyle, text_prop_return : ^TextProperty) -> int ---;
-utf8TextListToTextProperty                                 :: proc(display : ^Display, list : ^^_c.char, count : int, style : ICCEncodingStyle, text_prop_return : ^TextProperty) -> int ---;
-wcFreeStringList                                           :: proc(list : ^^_c.wchar_t) ---;
-TextPropertyToStringList                                   :: proc(^TextProperty, ^^^_c.char, ^int) -> int ---;
-mbTextPropertyToTextList                                   :: proc(display : ^Display, text_prop : ^TextProperty, list_return : ^^^_c.char, count_return : ^int) -> int ---;
-wcTextPropertyToTextList                                   :: proc(display : ^Display, text_prop : ^TextProperty, list_return : ^^^_c.wchar_t, count_return : ^int) -> int ---;
-utf8TextPropertyToTextList                                 :: proc(display : ^Display, text_prop : ^TextProperty, list_return : ^^^_c.char, count_return : ^int) -> int ---;
-UnionRectWithRegion                                        :: proc(^Rectangle, Region, Region) -> int ---;
-UnionRegion                                                :: proc(Region, Region, Region) -> int ---;
-WMGeometry                                                 :: proc(^Display, int, ^_c.char, ^_c.char, _c.uint, ^SizeHints, ^int, ^int, ^int, ^int, ^int) -> int ---;
-XorRegion                                                  :: proc(Region, Region, Region) -> int ---;
+    ClipBox :: proc(Region, ^Rectangle) -> _c.int ---;
+    CreateRegion :: proc() -> Region ---;
+    DeleteContext :: proc(^Display, ID, Context) -> _c.int ---;
+    DestroyRegion :: proc(Region) -> _c.int ---;
+    EmptyRegion :: proc(Region) -> _c.int ---;
+    EqualRegion :: proc(Region, Region) -> _c.int ---;
+    FindContext :: proc(^Display, ID, Context, ^Pointer) -> _c.int ---;
+    GetClassHint :: proc(^Display, Window, ^ClassHint) -> _c.int ---;
+    GetIconSizes :: proc(^Display, Window, ^^IconSize, ^_c.int) -> _c.int ---;
+    GetNormalHints :: proc(^Display, Window, ^SizeHints) -> _c.int ---;
+    GetRGBColormaps :: proc(^Display, Window, ^^StandardColormap, ^_c.int, Atom) -> _c.int ---;
+    GetSizeHints :: proc(^Display, Window, ^SizeHints, Atom) -> _c.int ---;
+    GetStandardColormap :: proc(^Display, Window, ^StandardColormap, Atom) -> _c.int ---;
+    GetTextProperty :: proc(^Display, Window, ^TextProperty, Atom) -> _c.int ---;
+    GetWMClientMachine :: proc(^Display, Window, ^TextProperty) -> _c.int ---;
+    GetWMIconName :: proc(^Display, Window, ^TextProperty) -> _c.int ---;
+    GetWMName :: proc(^Display, Window, ^TextProperty) -> _c.int ---;
+    GetWMNormalHints :: proc(^Display, Window, ^SizeHints, ^_c.long) -> _c.int ---;
+    GetWMSizeHints :: proc(^Display, Window, ^SizeHints, ^_c.long, Atom) -> _c.int ---;
+    GetZoomHints :: proc(^Display, Window, ^SizeHints) -> _c.int ---;
+    IntersectRegion :: proc(Region, Region, Region) -> _c.int ---;
+    ConvertCase :: proc(KeySym, ^KeySym, ^KeySym) ---;
+    LookupString :: proc(^KeyEvent, cstring, _c.int, ^KeySym, ^ComposeStatus) -> _c.int ---;
+    MatchVisualInfo :: proc(^Display, _c.int, _c.int, _c.int, ^VisualInfo) -> _c.int ---;
+    OffsetRegion :: proc(Region, _c.int, _c.int) -> _c.int ---;
+    PointInRegion :: proc(Region, _c.int, _c.int) -> _c.int ---;
+    PolygonRegion :: proc(^Point, _c.int, _c.int) -> Region ---;
+    RectInRegion :: proc(Region, _c.int, _c.int, _c.uint, _c.uint) -> _c.int ---;
+    SaveContext :: proc(^Display, ID, Context, cstring) -> _c.int ---;
+    SetClassHint :: proc(^Display, Window, ^ClassHint) -> _c.int ---;
+    SetIconSizes :: proc(^Display, Window, ^IconSize, _c.int) -> _c.int ---;
+    SetNormalHints :: proc(^Display, Window, ^SizeHints) -> _c.int ---;
+    SetRGBColormaps :: proc(^Display, Window, ^StandardColormap, _c.int, Atom) ---;
+    SetSizeHints :: proc(^Display, Window, ^SizeHints, Atom) -> _c.int ---;
+    SetStandardProperties :: proc(^Display, Window, cstring, cstring, Pixmap, ^cstring, _c.int, ^SizeHints) -> _c.int ---;
+    SetTextProperty :: proc(^Display, Window, ^TextProperty, Atom) ---;
+    SetWMClientMachine :: proc(^Display, Window, ^TextProperty) ---;
+    SetWMHints :: proc(^Display, Window, ^WMHints) -> _c.int ---;
+    SetWMIconName :: proc(^Display, Window, ^TextProperty) ---;
+    SetWMName :: proc(^Display, Window, ^TextProperty) ---;
+    SetWMNormalHints :: proc(^Display, Window, ^SizeHints) ---;
+    SetWMProperties :: proc(^Display, Window, ^TextProperty, ^TextProperty, ^cstring, _c.int, ^SizeHints, ^WMHints, ^ClassHint) ---;
+    mbSetWMProperties :: proc(^Display, Window, cstring, cstring, ^cstring, _c.int, ^SizeHints, ^WMHints, ^ClassHint) ---;
+    utf8SetWMProperties :: proc(^Display, Window, cstring, cstring, ^cstring, _c.int, ^SizeHints, ^WMHints, ^ClassHint) ---;
+    SetWMSizeHints :: proc(^Display, Window, ^SizeHints, Atom) ---;
+    SetRegion :: proc(^Display, GC, Region) -> _c.int ---;
+    SetStandardColormap :: proc(^Display, Window, ^StandardColormap, Atom) ---;
+    SetZoomHints :: proc(^Display, Window, ^SizeHints) -> _c.int ---;
+    ShrinkRegion :: proc(Region, _c.int, _c.int) -> _c.int ---;
+    StringListToTextProperty :: proc(^cstring, _c.int, ^TextProperty) -> _c.int ---;
+    SubtractRegion :: proc(Region, Region, Region) -> _c.int ---;
+    AllocWMHints :: proc() -> ^WMHints ---;
+    AllocClassHint :: proc() -> ^ClassHint ---;
+    AllocIconSize :: proc() -> ^IconSize ---;
+    UnionRegion :: proc(Region, Region, Region) -> _c.int ---;
+    AllocSizeHints :: proc() -> ^SizeHints ---;
+    mbTextListToTextProperty :: proc(display : ^Display, list : ^cstring, count : _c.int, style : ICCEncodingStyle, text_prop_return : ^TextProperty) -> _c.int ---;
+    wcTextListToTextProperty :: proc(display : ^Display, list : ^^_c.wchar_t, count : _c.int, style : ICCEncodingStyle, text_prop_return : ^TextProperty) -> _c.int ---;
+    utf8TextListToTextProperty :: proc(display : ^Display, list : ^cstring, count : _c.int, style : ICCEncodingStyle, text_prop_return : ^TextProperty) -> _c.int ---;
+    wcFreeStringList :: proc(list : ^^_c.wchar_t) ---;
+    TextPropertyToStringList :: proc(^TextProperty, ^^cstring, ^_c.int) -> _c.int ---;
+    mbTextPropertyToTextList :: proc(display : ^Display, text_prop : ^TextProperty, list_return : ^^cstring, count_return : ^_c.int) -> _c.int ---;
+    wcTextPropertyToTextList :: proc(display : ^Display, text_prop : ^TextProperty, list_return : ^^^_c.wchar_t, count_return : ^_c.int) -> _c.int ---;
+    utf8TextPropertyToTextList :: proc(display : ^Display, text_prop : ^TextProperty, list_return : ^^cstring, count_return : ^_c.int) -> _c.int ---;
+    UnionRectWithRegion :: proc(^Rectangle, Region, Region) -> _c.int ---;
+    WMGeometry :: proc(^Display, _c.int, cstring, cstring, _c.uint, ^SizeHints, ^_c.int, ^_c.int, ^_c.int, ^_c.int, ^_c.int) -> _c.int ---;
+    XorRegion :: proc(Region, Region, Region) -> _c.int ---;
+    GetWMHints :: proc(^Display, Window) -> ^WMHints ---;
+    AllocStandardColormap :: proc() -> ^StandardColormap ---;
+    DefaultString :: proc() -> cstring ---;
+    GetVisualInfo :: proc(^Display, _c.long, ^VisualInfo, ^_c.int) -> ^VisualInfo ---;
 }
 
